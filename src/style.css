@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Design tokens (Tailwind v4 @theme) */
+@theme {
+  /* Colors - updated palette */
+  --color-brand: #7701AE; /* roxo */
+  --color-brand-dark: #5E0189;
+
+  --color-background: #0F1222; /* mais profundo para contraste com gradientes */
+  --color-surface: #1A1F2E;
+
+  --color-text: #E7ECF5;
+  --color-text-muted: #A8B1C7;
+
+  /* Accents from palette link */
+  --color-accent: #E02B28; /* vermelho */
+  --color-accent-2: #8EAE01; /* oliva */
+  --color-success: #62AF06; /* verde */
+  --color-success-dark: #01AE20; /* verde escuro */
+
+  /* Fonts */
+  --font-sans: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Base resets */
+html, body, #app {
+  height: 100%;
+}
+
+body {
+  /* Usa os tokens como utilitários Tailwind */
+  @apply bg-background text-text font-sans antialiased;
+  margin: 0;
+  min-width: 320px;
+}
+
+/* Utilitários globais (a serem adaptados para o novo design) */
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold transition-colors;
+}
+
+/* Ajuste: não aplicar bg/hover aqui para não sobrescrever o gradiente definido abaixo */
+.btn-primary {
+  @apply text-white;
+}
+
+.section {
+  @apply py-16 sm:py-24;
+}
+
+.heading-1 {
+  @apply text-4xl sm:text-5xl md:text-6xl font-bold leading-tight;
+}
+
+.heading-2 {
+  @apply text-3xl sm:text-4xl font-bold;
+}
+
+.card {
+  @apply bg-surface/80 border border-white/10 rounded-xl p-6 shadow-md backdrop-blur;
+}
+
+/* Animations & microinteractions */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up { animation: fade-in-up 600ms ease-out both; }
+
+.hover-lift { @apply transition-transform duration-300; }
+.hover-lift:hover { transform: translateY(-4px); }
+
+.btn-primary { @apply transition-transform; }
+.btn-primary:hover { transform: translateY(-2px); }
+
+/* Utility: gradient surface accent for hero sections */
+.gradient-hero {
+  background: radial-gradient(80% 60% at 50% 0%, rgba(0,123,255,0.15) 0%, rgba(0,86,179,0.08) 35%, transparent 70%);
+}
+
+/* Buttons */
+.btn-primary { 
+  /* gradient brand button */
+  background-image: linear-gradient(135deg, var(--color-brand) 0%, var(--color-accent) 100%);
+  color: white;
+}
+.btn-primary:hover { filter: brightness(1.05); transform: translateY(-2px); }
+
+/* Gradient utilities */
+.bg-gradient-brand { background-image: linear-gradient(135deg, #7701AE 0%, #E02B28 100%); }
+.bg-gradient-success { background-image: linear-gradient(135deg, #62AF06 0%, #01AE20 100%); }
+.text-gradient {
+  background: linear-gradient(135deg, #7701AE, #E02B28);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass utilities */
+.glass { @apply bg-white/10 backdrop-blur-lg border border-white/15; }
+.glass-strong { @apply bg-white/5 backdrop-blur-xl border border-white/20 shadow-2xl; }
+
+/* Blobs / Liquid design */
+.blob { position: absolute; border-radius: 50%; filter: blur(30px); opacity: 0.7; mix-blend-mode: screen; }
+.blob--brand { background: radial-gradient(circle at 30% 30%, #7701AE 0%, transparent 60%); }
+.blob--accent { background: radial-gradient(circle at 60% 40%, #E02B28 0%, transparent 60%); }
+.blob--success { background: radial-gradient(circle at 50% 50%, #62AF06 0%, transparent 60%); }
+
+/* Parallax helpers */
+.parallax { position: relative; overflow: visible; }
+.parallax [data-speed] { will-change: transform; transition: transform 200ms ease-out; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+.btn-lg { padding-left: 2rem; padding-right: 2rem; padding-top: 1rem; padding-bottom: 1rem; font-size: 1.125rem; }
