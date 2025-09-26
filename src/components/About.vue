@@ -11,7 +11,7 @@
       </div>
       <div class="glass-strong rounded-2xl p-6 md:p-8">
         <div class="flex items-center gap-4">
-          <div class="h-14 w-14 rounded-full bg-gradient-brand flex items-center justify-center text-2xl font-bold">Ô</div>
+          <div class="h-14 w-14 rounded-full bg-gradient-brand flex items-center justify-center text-2xl font-bold">J</div>
           <div>
             <h3 class="text-xl font-bold">Josley da Silva Magalhães</h3>
             <p class="text-text-muted">Contador Responsável</p>

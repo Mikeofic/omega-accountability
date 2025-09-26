@@ -2,7 +2,7 @@
   <header class="bg-surface/80 backdrop-blur-lg sticky top-0 z-40 w-full border-b border-black/10">
     <div class="container mx-auto flex justify-between items-center p-4">
       <a href="#" class="flex items-center gap-2">
-        <img src="/logo.png" alt="Omega Contabilidade" class="h-30 w-auto" />
+        <img src="/logo.png" alt="Omega Contabilidade" class="h-10 w-auto" />
       </a>
       <nav class="hidden md:flex space-x-8">
         <a href="#about" class="text-text-muted hover:text-text transition-colors">Sobre</a>
@@ -17,11 +17,17 @@
       <a href="https://wa.me/556593384827" target="_blank" class="btn btn-primary hidden md:inline-flex">
         Fale com um especialista
       </a>
-      <button @click="isOpen = !isOpen" class="md:hidden text-text" aria-label="Abrir menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+      <button @click="toggle" class="md:hidden text-text" :aria-expanded="isOpen.toString()" aria-controls="mobile-menu" :aria-label="isOpen ? 'Fechar menu' : 'Abrir menu'">
+        <svg v-if="!isOpen" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        <svg v-else class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
       </button>
     </div>
-    <div v-if="isOpen" class="md:hidden bg-surface border-t border-black/10">
+
+    <!-- Overlay -->
+    <div v-if="isOpen" class="fixed inset-0 bg-black/40 md:hidden" style="z-index: 30;" @click="isOpen = false" aria-hidden="true"></div>
+
+    <!-- Mobile menu -->
+    <div v-if="isOpen" id="mobile-menu" class="md:hidden bg-surface border-t border-black/10 relative" style="z-index: 40;">
       <nav class="flex flex-col items-center space-y-4 p-4">
         <a href="#about" @click="isOpen = false" class="text-text-muted hover:text-text transition-colors">Sobre</a>
         <a href="#services" @click="isOpen = false" class="text-text-muted hover:text-text transition-colors">Serviços</a>
@@ -40,7 +46,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 
 const isOpen = ref(false)
+
+function toggle() { isOpen.value = !isOpen.value }
+
+function onKeydown(e) {
+  if (e.key === 'Escape' && isOpen.value) isOpen.value = false
+}
+
+watch(isOpen, (val) => {
+  document.body.style.overflow = val ? 'hidden' : ''
+})
+
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  document.body.style.overflow = ''
+})
 </script>

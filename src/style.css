@@ -27,6 +27,9 @@ html, body, #app {
   height: 100%;
 }
 
+/* Scroll suave global */
+html { scroll-behavior: smooth; }
+
 body {
   /* Usa os tokens como utilitários Tailwind */
   @apply bg-background text-text font-sans antialiased;
@@ -124,5 +127,6 @@ body {
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  html { scroll-behavior: auto; }
 }
 .btn-lg { padding-left: 2rem; padding-right: 2rem; padding-top: 1rem; padding-bottom: 1rem; font-size: 1.125rem; }
