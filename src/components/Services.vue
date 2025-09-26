@@ -6,7 +6,7 @@
         <p class="text-text-muted mt-4 max-w-2xl mx-auto">Gestão completa para você operar em conformidade, reduzir custos e ganhar previsibilidade.</p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        <div v-for="(s, i) in services" :key="i" class="card hover-lift group">
+        <div v-for="(s, i) in services" :key="i" class="card hover-lift group bg-surface/70 backdrop-blur-lg border border-black/10">
           <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-brand/10 text-brand">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <template v-if="s.icon === 'ledger'">
@@ -36,7 +36,7 @@
           </div>
           <h3 class="text-xl font-bold mb-2">{{ s.title }}</h3>
           <p class="text-text-muted mb-4">{{ s.desc }}</p>
-          <a :href="wa" target="_blank" class="btn btn-primary">Falar no WhatsApp</a>
+          <a :href="wa" target="_blank" class="btn btn-primary btn-glow">Falar no WhatsApp</a>
         </div>
       </div>
     </div>

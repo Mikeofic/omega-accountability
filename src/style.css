@@ -3,20 +3,20 @@
 /* Design tokens (Tailwind v4 @theme) */
 @theme {
   /* Colors - updated palette */
-  --color-brand: #7701AE; /* roxo */
-  --color-brand-dark: #5E0189;
+  --color-brand: #4597c9; /* azul primário */
+  --color-brand-dark: #357aa5;
 
-  --color-background: #0F1222; /* mais profundo para contraste com gradientes */
-  --color-surface: #1A1F2E;
+  --color-background: #f7fafc; /* claro para harmonia com fundos brancos */
+  --color-surface: #ffffff;
 
-  --color-text: #E7ECF5;
-  --color-text-muted: #A8B1C7;
+  --color-text: #1f2937; /* cinza-900 */
+  --color-text-muted: black; /* cinza-500 */
 
-  /* Accents from palette link */
-  --color-accent: #E02B28; /* vermelho */
-  --color-accent-2: #8EAE01; /* oliva */
-  --color-success: #62AF06; /* verde */
-  --color-success-dark: #01AE20; /* verde escuro */
+  /* Accents */
+  --color-accent: #357aa5; /* acento mais escuro do brand */
+  --color-accent-2: #2a69a3; /* acento intermediário */
+  --color-success: #22c55e; /* verde */
+  --color-success-dark: #16a34a; /* verde escuro */
 
   /* Fonts */
   --font-sans: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -41,6 +41,7 @@ body {
 
 .btn {
   @apply inline-flex items-center justify-center rounded-md px-5 py-3 font-semibold transition-colors;
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
 }
 
 /* Ajuste: não aplicar bg/hover aqui para não sobrescrever o gradiente definido abaixo */
@@ -61,7 +62,7 @@ body {
 }
 
 .card {
-  @apply bg-surface/80 border border-white/10 rounded-xl p-6 shadow-md backdrop-blur;
+  @apply bg-surface/80 border border-black/10 rounded-xl p-6 shadow-md backdrop-blur;
 }
 
 /* Animations & microinteractions */
@@ -80,36 +81,41 @@ body {
 
 /* Utility: gradient surface accent for hero sections */
 .gradient-hero {
-  background: radial-gradient(80% 60% at 50% 0%, rgba(0,123,255,0.15) 0%, rgba(0,86,179,0.08) 35%, transparent 70%);
+  background: radial-gradient(80% 60% at 50% 0%, rgba(69,151,201,0.16) 0%, rgba(53,122,165,0.08) 35%, transparent 70%);
 }
 
 /* Buttons */
 .btn-primary { 
   /* gradient brand button */
-  background-image: linear-gradient(135deg, var(--color-brand) 0%, var(--color-accent) 100%);
+  background-image: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-dark) 100%);
   color: white;
 }
 .btn-primary:hover { filter: brightness(1.05); transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Button glow utility */
+.btn-glow { box-shadow: 0 8px 24px rgba(69,151,201,0.25), 0 2px 8px rgba(0,0,0,0.08); }
+.btn-glow:hover { box-shadow: 0 12px 28px rgba(69,151,201,0.32), 0 4px 12px rgba(0,0,0,0.10); }
 
 /* Gradient utilities */
-.bg-gradient-brand { background-image: linear-gradient(135deg, #7701AE 0%, #E02B28 100%); }
-.bg-gradient-success { background-image: linear-gradient(135deg, #62AF06 0%, #01AE20 100%); }
+.bg-gradient-brand { background-image: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-dark) 100%); }
+.bg-gradient-success { background-image: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%); }
 .text-gradient {
-  background: linear-gradient(135deg, #7701AE, #E02B28);
+  background: linear-gradient(135deg, var(--color-brand), var(--color-brand-dark));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 /* Glass utilities */
-.glass { @apply bg-white/10 backdrop-blur-lg border border-white/15; }
-.glass-strong { @apply bg-white/5 backdrop-blur-xl border border-white/20 shadow-2xl; }
+.glass { @apply bg-white/10 backdrop-blur-lg border border-black/10; }
+.glass-strong { @apply bg-white/5 backdrop-blur-xl border border-black/20 shadow-2xl; }
 
 /* Blobs / Liquid design */
 .blob { position: absolute; border-radius: 50%; filter: blur(30px); opacity: 0.7; mix-blend-mode: screen; }
-.blob--brand { background: radial-gradient(circle at 30% 30%, #7701AE 0%, transparent 60%); }
-.blob--accent { background: radial-gradient(circle at 60% 40%, #E02B28 0%, transparent 60%); }
-.blob--success { background: radial-gradient(circle at 50% 50%, #62AF06 0%, transparent 60%); }
+.blob--brand { background: radial-gradient(circle at 30% 30%, var(--color-brand) 0%, transparent 60%); }
+.blob--accent { background: radial-gradient(circle at 60% 40%, var(--color-brand-dark) 0%, transparent 60%); }
+.blob--success { background: radial-gradient(circle at 50% 50%, var(--color-success) 0%, transparent 60%); }
 
 /* Parallax helpers */
 .parallax { position: relative; overflow: visible; }

@@ -7,14 +7,15 @@
       </div>
 
       <div class="relative group" @mouseenter="pause" @mouseleave="play">
-        <div class="overflow-hidden rounded-xl border border-white/10 bg-surface/60 backdrop-blur">
+        <div class="overflow-hidden rounded-xl border border-black/10 bg-surface/60 backdrop-blur">
           <div class="flex transition-transform duration-500 ease-out" :style="{ transform: `translateX(-${currentIndex * 100}%)` }" role="list">
             <article v-for="(item, i) in items" :key="i" role="listitem" class="min-w-full p-6 md:p-10">
-              <figure class="max-w-3xl mx-auto text-center">
+              <figure class="max-w-3xl mx-auto text-center bg-surface/70 backdrop-blur-lg border border-black/10 rounded-xl p-6 md:p-8 shadow-lg">
+                <div class="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand/10 text-brand font-bold">{{ initial(item.author) }}</div>
                 <blockquote class="text-lg md:text-xl text-text-muted leading-relaxed">“{{ item.quote }}”</blockquote>
                 <figcaption class="mt-6 font-semibold">— {{ item.author }}</figcaption>
                 <ul class="mt-4 flex flex-wrap items-center justify-center gap-4 text-sm text-text-muted/90">
-                  <li v-for="(m, mi) in item.metrics" :key="mi" class="px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <li v-for="(m, mi) in item.metrics" :key="mi" class="px-3 py-1 rounded-full bg-black/5 border border-black/10">
                     {{ m }}
                   </li>
                 </ul>
@@ -24,16 +25,16 @@
         </div>
 
         <!-- Controles -->
-        <button @click="prev" aria-label="Anterior" class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-surface/90 border border-white/10 text-text hover:-translate-x-0.5 transition group-hover:flex">
+        <button @click="prev" aria-label="Anterior" class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-surface/90 border border-black/10 text-text hover:-translate-x-0.5 transition group-hover:flex">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <button @click="next" aria-label="Próximo" class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-surface/90 border border-white/10 text-text hover:translate-x-0.5 transition group-hover:flex">
+        <button @click="next" aria-label="Próximo" class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full bg-surface/90 border border-black/10 text-text hover:translate-x-0.5 transition group-hover:flex">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </button>
 
         <!-- Indicadores -->
         <div class="mt-6 flex items-center justify-center gap-2">
-          <button v-for="(item, i) in items" :key="i" @click="goTo(i)" :aria-label="`Ir para o slide ${i+1}`" class="h-2.5 rounded-full transition-colors" :class="i === currentIndex ? 'w-6 bg-brand' : 'w-2.5 bg-white/20 hover:bg-white/40'" />
+          <button v-for="(item, i) in items" :key="i" @click="goTo(i)" :aria-label="`Ir para o slide ${i+1}`" class="h-2.5 rounded-full transition-colors" :class="i === currentIndex ? 'w-6 bg-brand' : 'w-2.5 bg-black/20 hover:bg-black/30'" />
         </div>
       </div>
     </div>
@@ -85,6 +86,10 @@ function stop() {
     clearInterval(timer)
     timer = null
   }
+}
+
+function initial(name) {
+  return (name?.trim()?.charAt(0) || '').toUpperCase()
 }
 
 onMounted(play)
